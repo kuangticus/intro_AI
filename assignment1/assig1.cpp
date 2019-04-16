@@ -4,6 +4,11 @@ using namespace std;
 
 struct node {
     int state[2][3];
+    struct node* parent;
+    int action;
+    int pathCost;
+    int depth;
+
 };
 
 int main(int argc, char *argv[]){

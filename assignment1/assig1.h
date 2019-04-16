@@ -7,9 +7,12 @@
 #include <cstdlib>
 #include <fstream>
 
-void expand();
-void goalTest();
-void graphSearch();
+bool compareStates();
+struct node* expand();
+int** action();
+bool goalTest();
+void solutionPath();
+//void graphSearch();
 void heur();
 void bfs ();
 void dfs ();
