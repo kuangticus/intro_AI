@@ -9,18 +9,15 @@ struct node {
 int main(int argc, char *argv[]){
     int initState[2][3]; //stores initial state for comp later
     int goalState[2][3]; // stores goal states for comp later
-
+    int temp = 0;    
+    string line1, line2;
     ifstream in1, in2; // instream
     ofstream out1;     // outstream
 
     in1.open(argv[1]); // opening intial state file
     in2.open(argv[2]); // opening goal state file
     out1.open(argv[4]); // opening file for writing by user
-
-    int temp = 0;       
-   
-    string line1, line2;
-    
+ 
     //init state getline for values used for intial states values
     if(in1.is_open()){
         getline(in1, line1);

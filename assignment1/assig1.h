@@ -8,6 +8,7 @@
 #include <fstream>
 
 void expand();
+void goalTest();
 void graphSearch();
 void heur();
 void bfs ();
