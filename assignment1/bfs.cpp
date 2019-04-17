@@ -1,19 +1,43 @@
-#include "assig1.h"
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <cstdlib>
+#include <fstream>
+#include <queue>
+#include <vector>
+#include <unordered_map>
+
+//#include "assig1.h"
+using namespace std;
+
+struct node{
+    int state[2][3];
+    struct node* parent;
+    string name;
+    int action;
+    int pathCost;
+    int depth;
+};
 
 bool actionIsValid(struct node temp, int action){
 
     if(action == 0){ //put one chicken on the boat
+        
         if(temp.state[0][2] == 1){ //check if boat is on left bank
             if(temp.state[0][0] >= 1){ //checks if there are greater than or equal to 1 chicken on the left bank 
-                if(temp.state[0][0] - 1 > temp.state[0][1]){ //checks if removing one chicken on the left bank makes wolves outnumber chickens
+                if((temp.state[0][0] - 1 > temp.state[0][1]) && (temp.state[1][0] + 1 >= temp.state[1][1])){ //checks if removing one chicken on the left bank makes wolves outnumber chickens
+                    
                     return true;
                 }
                 return false;
             }
         }
         else{ //if boat is on the right bank
+            
             if(temp.state[1][0] >= 1){ //checks if there are greater than or equal to 1 chicken on the right bank 
-                if(temp.state[1][0] - 1 >= temp.state[1][1]){ //checks if removing one chicken on the right bank makes wolves outnumber chickens
+                
+                if((temp.state[1][0] - 1 >= temp.state[1][1]) && (temp.state[0][0] + 1 >= temp.state[0][1])){ //checks if removing one chicken on the right bank makes wolves outnumber chickens
+                    
                     return true;
                 }
                 return false;
@@ -24,7 +48,7 @@ bool actionIsValid(struct node temp, int action){
     else if(action == 1){   //put two chickens on the boat
             if(temp.state[0][2] == 1){ //check if boat is on left bank
                 if(temp.state[0][0] >= 2){ //checks if there are greater than or equal to 2 chickens on the left bank 
-                    if(temp.state[0][0] - 2 >= temp.state[0][1]){ //checks if removing two chicken on the left bank makes wolves outnumber chickens
+                    if( (temp.state[0][0] - 2 >= temp.state[0][1]) && (temp.state[1][0]+2 >= temp.state[1][1] ) ){ //checks if removing two chicken on the left bank makes wolves outnumber chickens
                         return true;
                     }
                     return false;
@@ -32,7 +56,7 @@ bool actionIsValid(struct node temp, int action){
             }
            else{ //if boat is on the right bank
                 if(temp.state[1][0] >= 2){ //checks if there are greater than or equal to 2 chickens on the right bank 
-                    if(temp.state[1][0] - 2 >= temp.state[1][1]){ //checks if removing two chicken on the right bank makes wolves outnumber chickens
+                    if( (temp.state[1][0] - 2 >= temp.state[1][1]) && (temp.state[0][0]+2 >= temp.state[0][1] )){ //checks if removing two chicken on the right bank makes wolves outnumber chickens
                         return true;
                     }
                     return false;
@@ -41,9 +65,11 @@ bool actionIsValid(struct node temp, int action){
     }
 
     else if (action == 2){ //put one wolf on the boat
+        //cout << "action func"<< endl;
         if(temp.state[0][2] == 1){ //check if boat is on left bank
+           
             if(temp.state[0][1] >= 1){ //checks if there are greater than or equal to 1 wolf on the left bank 
-                if(temp.state[1][0] >= temp.state[1][1]+1){ //checks if adding a wolf to the right bank outnumbers the chickens on the right bank
+                if( (temp.state[1][0] >= temp.state[1][1]+1) || temp.state[1][0] == 0){ //checks if adding a wolf to the right bank outnumbers the chickens on the right bank
                     return true;
                 }
                return false;
@@ -51,8 +77,11 @@ bool actionIsValid(struct node temp, int action){
         }
     
         else{ //if boat is on the right bank
+           //cout << "action func right bank"<< endl;
            if(temp.state[1][1] >= 1){ //checks if there are greater than or equal to 1 wolf on the left bank 
-                if(temp.state[0][0] >= temp.state[0][1]+1){ //checks if adding a wolf to the right bank outnumbers the chickens on the right bank
+                 //cout << "action func 1"<< endl;
+                if((temp.state[0][0] >= temp.state[0][1]+1) || temp.state[0][0] == 0){ //checks if adding a wolf to the right bank outnumbers the chickens on the right bank
+                   // cout << "action func 22"<< endl;
                     return true;
                 }
                return false;
@@ -63,7 +92,7 @@ bool actionIsValid(struct node temp, int action){
     else if (action == 3){ //put one wolf and one chicken on the boat
         if(temp.state[0][2] == 1){ //check if the boat is on the left side
             if(temp.state[0][0] >= 1 && temp.state[0][1] >= 1){ // check if there are more than one chicken and one wolf on the left side to avoid -1 issue
-                if((temp.state[0][0] - 1 > temp.state[0][1]) && (temp.state[1][0] >= temp.state[1][1]+1)){ //checks if removing one chicken on the left bank makes wolves outnumber chickens
+                if((temp.state[1][0]+1 >= temp.state[1][1]+1)){ //checks if removing one chicken on the left bank makes wolves outnumber chickens
                     return true;
                 }
                 return false;
@@ -71,7 +100,7 @@ bool actionIsValid(struct node temp, int action){
         }
         else{
             if(temp.state[1][0] >= 1 && temp.state[1][1] >= 1){ //checks if there are greater than or equal to 1 chicken on the left bank 
-                if((temp.state[1][0] - 1 > temp.state[1][1]) && (temp.state[0][0] >= temp.state[0][1]+1)){ //checks if removing one chicken on the left bank and adding  makes wolves outnumber chickens
+                if((temp.state[0][0]+1 >= temp.state[0][1]+1)){ //checks if removing one chicken on the left bank and adding  makes wolves outnumber chickens
                     return true;
                 }
                 return false;
@@ -82,7 +111,7 @@ bool actionIsValid(struct node temp, int action){
     else if (action == 4){  // two wolves
          if(temp.state[0][2] == 1){ //check if boat is on left bank
             if(temp.state[0][1] >= 2){ //checks if there are greater than or equal to 2 wolves on the left bank 
-                if(temp.state[1][0] >= temp.state[1][1]+2){ //checks if adding a wolf to the right bank outnumbers the chickens on the right bank
+                if((temp.state[1][0] >= temp.state[1][1]+2) || temp.state[1][0] == 0){ //checks if adding a wolf to the right bank outnumbers the chickens on the right bank
                     return true;
                 }
                return false;
@@ -91,7 +120,7 @@ bool actionIsValid(struct node temp, int action){
     
         else{ //if boat is on the right bank
            if(temp.state[1][1] >= 2){ //checks if there are greater than or equal to 1 wolf on the left bank 
-                if(temp.state[0][0] >= temp.state[0][1]+2){ //checks if adding a wolf to the right bank outnumbers the chickens on the right bank
+                if( (temp.state[0][0] >= temp.state[0][1]+2) || (temp.state[0][0] == 0)){ //checks if adding a wolf to the right bank outnumbers the chickens on the right bank
                     return true;
                 }
                return false;
@@ -138,7 +167,6 @@ void result(struct node temp, struct node *s, int action){
             s->state[1][1] = s->state[1][1] - 1;
             s->state[0][1] = s->state[0][1] + 1;
         }
-
     }
 
     else if ( action == 3 ){ //move one wolf and one chicken
@@ -174,60 +202,125 @@ void result(struct node temp, struct node *s, int action){
 
 string keyGen (struct node goNode){
     string key;
-    key = to_string(goNode->state[0][0]) + to_string(goNode->state[0][1]) + to_string(goNode->state[0][2]) 
-        + to_string(goNode->action);  // changes the ints to string for key generation for the hash table
+    key = to_string(goNode.state[0][0]) + to_string(goNode.state[0][1]) + to_string(goNode.state[0][2]) 
+        + to_string(goNode.action);  // changes the ints to string for key generation for the hash table
     return key;
 }
 
 vector <struct node*> expand(struct node* temp){
 
+   // cout << "Expanded Function" << endl;
+
     vector <struct node*> successors; // vector //needs to be a data structure of some kind not just an array unless we can append to an array. Maybe a vector
     struct node* s;
     
     for(int i = 0; i < 5; i++){
-
         if(actionIsValid(*temp, i)){  // this function checks see if the
+            // cout << "Expanded Function 2" << endl;
+
             s = new struct node;
             s->parent = temp;
             s->action = i;            
             result(*temp, s, i);
             s->pathCost = temp->pathCost + 1;//stepCost(temp, s, i); 
             s->depth++;
+            s->name = "";
             s->name = keyGen(*s);
-            successors.append(s);
+            successors.push_back(s);
         }
     }
     return successors;
 }
 
-struct node bfs(struct node initState, struct node goalState, struct node failNode){
+bool goalTest(struct node temp, struct node goalState){
+    for (int i = 0; i < 2; i++){
+        for ( int j = 0; j < 3; j++){
+            if ( temp.state[i][j] != goalState.state[i][j] )
+                return false;
+        }
+    }
+    return true;
+}
+
+struct node* bfs(struct node initState, struct node goalState, struct node *failNode){
 
     struct node* temp;  // going to expand node?
     vector <struct node*> expanded; //same data structure as successors
     unordered_map <string, struct node*> closed; //create hashtable for bfs
     queue <struct node> fringe;   //queue for nodes 
     fringe.push(initState); //pushes initial state on the queue
+    
 
     while(true){
-        if(fringe.isEmpty()){ 
+        if(fringe.empty()){ 
             return failNode;    //returns failure if fringe is empty
         }
-        
-        temp = &fringe.pop(); //puts the first node to be expanded in a temp variable
-        if(goalTest(*temp)){ //checks if the node is a goal state
-            return *temp;    // returns the node if it is a goal state
+        temp = &(fringe.front()); //puts the first node to be expanded in a temp variable
+        fringe.pop();
+
+        //cout << temp->name << "1" << endl;
+
+        if(goalTest(*temp, goalState)){ //checks if the node is a goal state
+            //cout << temp->name << "2" << endl;
+            return temp;    // returns the node if it is a goal state
         }
         
         if(closed.find(temp->name) == closed.end()){ //checks if the closed list contains the node to be expanded
+ 
+            //cout << temp->name << "3" <<endl;
 
             closed[temp->name] = temp;    //adds the node to the closed list
             expanded = expand(temp);       //expands the node and returns successors
             
-            for(int i = 0; i < expanded.length(); i++){
+            for(int i = 0; i < expanded.size() - 1; i++){
                 
-                fringe.push(expanded[i]); //adds from the expanded list to the fringe list
+                fringe.push(*(expanded[i])); //adds from the expanded list to the fringe list
 
             }
         }         
     }
+}
+
+int main(){
+
+    struct node initState;
+    
+    initState.state[0][0] = 0;
+    initState.state[0][1] = 0;
+    initState.state[0][2] = 0;
+    initState.state[1][0] = 3;
+    initState.state[1][1] = 3;
+    initState.state[1][2] = 1;
+    
+    initState.parent = NULL;
+    initState.action = -1;
+    initState.pathCost = 0;
+    initState.depth = 0;
+    initState.name = "fail";
+
+        
+    struct node goalState;
+    
+    goalState.state[0][0] = 3;
+    goalState.state[0][1] = 3;
+    goalState.state[0][2] = 1;
+    goalState.state[1][0] = 0;
+    goalState.state[1][1] = 0;
+    goalState.state[1][2] = 0;
+    goalState.parent = NULL;
+    goalState.action = -1;
+    goalState.pathCost = 0;
+    goalState.depth = 0;
+    goalState.name = "";
+    
+    struct node *failState = &initState;
+    
+
+    struct node* goal = bfs(initState, goalState, failState);
+
+    cout << goal->name << endl;
+
+    
+    return 0;
+    
 }
