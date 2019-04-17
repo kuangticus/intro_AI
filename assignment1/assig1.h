@@ -7,9 +7,12 @@
 #include <cstdlib>
 #include <fstream>
 
+using namespace std;
+
 bool compareStates();
 struct node* expand();
-int** action();
+bool actionIsValid();
+void result();
 bool goalTest();
 void solutionPath();
 //void graphSearch();
@@ -22,7 +25,14 @@ void print();
 void writeFile();
 
 
+struct node{
+    int state[2][3];
+    struct node* parent;
+    int action;
+    int pathCost;
+    int depth;
 
+};
 
 
 
