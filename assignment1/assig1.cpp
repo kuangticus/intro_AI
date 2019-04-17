@@ -1,7 +1,5 @@
 #include "assig1.h"
 
-
-
 int main(int argc, char *argv[]){
     int initState[2][3]; //stores initial state for comp later
     int goalState[2][3]; // stores goal states for comp later
@@ -81,21 +79,7 @@ int main(int argc, char *argv[]){
     else 
         cout << "Mode: " << argv[3] << " does not exist!" << endl;
 
-
     // insert code for writing to file here
     
     return 0;
-}
-
-void bfs () {
-    cout << "bfs" << endl;
-}
-void dfs() {
-    cout << "dfs" << endl;
-}
-void iddfs(){
-    cout << "iddfs" << endl;
-}
-void astar(){
-    cout << "astar" << endl;
 }

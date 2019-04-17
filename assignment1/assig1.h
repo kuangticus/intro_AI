@@ -6,36 +6,33 @@
 #include <cstring>
 #include <cstdlib>
 #include <fstream>
+#include <queue>
+#include <vector>
+#include <unordered_map>
 
 using namespace std;
 
 bool compareStates();
-struct node* expand();
+vector <struct node*> expand();
 bool actionIsValid();
 void result();
 bool goalTest();
 void solutionPath();
-//void graphSearch();
 void heur();
-void bfs ();
+struct node bfs (struct node, struct node, struct node);
 void dfs ();
 void iddfs ();
 void astar ();
 void print();
 void writeFile();
-
+string keyGen(struct node);
 
 struct node{
     int state[2][3];
     struct node* parent;
+    string name;
     int action;
     int pathCost;
     int depth;
-
 };
-
-
-
-
-
 #endif
