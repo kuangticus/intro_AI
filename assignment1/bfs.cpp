@@ -111,7 +111,7 @@ bool actionIsValid(struct node temp, int action){
     else if (action == 4){  // two wolves
          if(temp.state[0][2] == 1){ //check if boat is on left bank
             if(temp.state[0][1] >= 2){ //checks if there are greater than or equal to 2 wolves on the left bank 
-                if((temp.state[1][0] >= temp.state[1][1]+2) || temp.state[1][0] == 0){ //checks if adding a wolf to the right bank outnumbers the chickens on the right bank
+                if((temp.state[1][0] >= temp.state[1][1]+2) || (temp.state[1][0] == 0)){ //checks if adding a wolf to the right bank outnumbers the chickens on the right bank
                     return true;
                 }
                return false;
@@ -127,15 +127,23 @@ bool actionIsValid(struct node temp, int action){
            }
         }
     }
+    
 }
 
 void result(struct node temp, struct node *s, int action){
-    for(int i = 0; i < 2; i++){
-        for(int j = 0; j < 3; j++){
-            s->state[i][j] = temp.state[i][j];
-        }   
-    }
+    // for(int i = 0; i < 2; i++){
+    //     for(int j = 0; j < 3; j++){
+    //         s->state[i][j] = temp.state[i][j];
+    //     }   
+    // }
+    s->state[0][0] = temp.state[0][0];
+    s->state[0][1] = temp.state[0][1];
+    s->state[0][2] = temp.state[0][2];
+    s->state[1][0] = temp.state[1][0];
+    s->state[1][1] = temp.state[1][1];
+    s->state[1][2] = temp.state[1][2];
 
+    
     if(action == 0){ //move one chicken
         if(s->state[0][2] == 1){ //left
             s->state[0][0] = s->state[0][0] - 1;
@@ -209,26 +217,30 @@ string keyGen (struct node goNode){
 
 vector <struct node*> expand(struct node* temp){
 
-   // cout << "Expanded Function" << endl;
+   cout << "Expanded Function" << endl;
 
     vector <struct node*> successors; // vector //needs to be a data structure of some kind not just an array unless we can append to an array. Maybe a vector
     struct node* s;
     
+    
     for(int i = 0; i < 5; i++){
+        cout << "Expanded Function 2" << endl;
         if(actionIsValid(*temp, i)){  // this function checks see if the
-            // cout << "Expanded Function 2" << endl;
-
+            
+            cout << "seg fault?" <<endl;
             s = new struct node;
             s->parent = temp;
-            s->action = i;            
+            s->action = i;   
             result(*temp, s, i);
             s->pathCost = temp->pathCost + 1;//stepCost(temp, s, i); 
             s->depth++;
             s->name = "";
             s->name = keyGen(*s);
             successors.push_back(s);
+            cout << "no" <<endl;
         }
     }
+    cout << "before return" << endl;
     return successors;
 }
 
@@ -272,10 +284,11 @@ struct node* bfs(struct node initState, struct node goalState, struct node *fail
             closed[temp->name] = temp;    //adds the node to the closed list
             expanded = expand(temp);       //expands the node and returns successors
             
-            for(int i = 0; i < expanded.size() - 1; i++){
-                
+            cout << "after expansion" << endl; 
+            for(int i = 0; i < expanded.size(); i++){
+                // cout <<i << endl;
                 fringe.push(*(expanded[i])); //adds from the expanded list to the fringe list
-
+                
             }
         }         
     }
