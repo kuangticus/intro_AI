@@ -6,8 +6,9 @@
 #include <queue>
 #include <vector>
 #include <unordered_map>
-
+#include <sstream>
 //#include "assig1.h"
+
 using namespace std;
 
 struct node{
@@ -21,6 +22,8 @@ struct node{
 
 bool actionIsValid(struct node temp, int action){
 
+    cout << "action is here 1 " << endl;
+
     if(action == 0){ //put one chicken on the boat
         
         if(temp.state[0][2] == 1){ //check if boat is on left bank
@@ -30,8 +33,7 @@ bool actionIsValid(struct node temp, int action){
                     return true;
                 }
             }
-            return false;
-
+            // return false;
         }
         else{ //if boat is on the right bank
             
@@ -42,30 +44,27 @@ bool actionIsValid(struct node temp, int action){
                     return true;
                 }
             }
-            return false;
-
+            // return false;
         }
     }
 
     else if(action == 1){   //put two chickens on the boat
-            if(temp.state[0][2] == 1){ //check if boat is on left bank
-                if(temp.state[0][0] >= 2){ //checks if there are greater than or equal to 2 chickens on the left bank 
-                    if( ((temp.state[0][0] - 2 >= temp.state[0][1]) || (temp.state[0][0] - 2 == 0))  && (temp.state[1][0]+2 >= temp.state[1][1] ) ){ //checks if removing two chicken on the left bank makes wolves outnumber chickens
-                        return true;
-                    }
-                   
-                }
-                return false;
+        if(temp.state[0][2] == 1){ //check if boat is on left bank
+            if(temp.state[0][0] >= 2){ //checks if there are greater than or equal to 2 chickens on the left bank 
+                if( ((temp.state[0][0] - 2 >= temp.state[0][1]) || (temp.state[0][0] - 2 == 0))  && (temp.state[1][0]+2 >= temp.state[1][1] ) ){ //checks if removing two chicken on the left bank makes wolves outnumber chickens
+                    return true;
+                }         
             }
-           else{ //if boat is on the right bank
-                if(temp.state[1][0] >= 2){ //checks if there are greater than or equal to 2 chickens on the right bank 
-                    if( ((temp.state[1][0] - 2 >= temp.state[1][1]) || (temp.state[1][0] - 2 == 0)) && (temp.state[0][0] + 2 >= temp.state[0][1] )){ //checks if removing two chicken on the right bank makes wolves outnumber chickens
-                        return true;
-                    }
-                    
-                }   
-                return false;
+           // return false;
+        }
+        else{ //if boat is on the right bank
+            if(temp.state[1][0] >= 2){ //checks if there are greater than or equal to 2 chickens on the right bank 
+                if( ((temp.state[1][0] - 2 >= temp.state[1][1]) || (temp.state[1][0] - 2 == 0)) && (temp.state[0][0] + 2 >= temp.state[0][1] )){ //checks if removing two chicken on the right bank makes wolves outnumber chickens
+                    return true;
+                }                
             }   
+           // return false;
+        }   
     }
 
     else if (action == 2){ //put one wolf on the boat
@@ -75,10 +74,9 @@ bool actionIsValid(struct node temp, int action){
             if(temp.state[0][1] >= 1){ //checks if there are greater than or equal to 1 wolf on the left bank 
                 if( (temp.state[1][0] >= temp.state[1][1]+1) || temp.state[1][0] == 0){ //checks if adding a wolf to the right bank outnumbers the chickens on the right bank
                     return true;
-                }
-               
+                }         
            }
-            return false;
+           //return false;
         }
     
         else{ //if boat is on the right bank
@@ -87,29 +85,30 @@ bool actionIsValid(struct node temp, int action){
                 if((temp.state[0][0] >= temp.state[0][1]+1) || temp.state[0][0] == 0){ //checks if adding a wolf to the right bank outnumbers the chickens on the right bank
                    // cout << "action func 22"<< endl;
                     return true;
-                }
-               
+                }           
            }
-            return false;
+           // return false;
         }   
     }
 
     else if (action == 3){ //put one wolf and one chicken on the boat
+        cout << "seg fault inside action 3?" << endl;
         if(temp.state[0][2] == 1){ //check if the boat is on the left side
             if(temp.state[0][0] >= 1 && temp.state[0][1] >= 1){ // check if there are more than one chicken and one wolf on the left side to avoid -1 issue
-                if((temp.state[1][0]+1 >= temp.state[1][1]+1)){ //checks if removing one chicken on the left bank makes wolves outnumber chickens
+                if((temp.state[1][0]+1 >= temp.state[1][1]+1) /*&& ((temp.state[0][0]-1 >= temp.state[0][1]-1) || (temp.state[0][0] - 1 == 0))*/ ){ //checks if removing one chicken on the left bank makes wolves outnumber chickens
                     return true;
                 }   
             }
-            return false;
+            //return false;
         }
         else{
             if(temp.state[1][0] >= 1 && temp.state[1][1] >= 1){ //checks if there are greater than or equal to 1 chicken on the left bank 
-                if((temp.state[0][0]+1 >= temp.state[0][1]+1)){ //checks if removing one chicken on the left bank and adding  makes wolves outnumber chickens
+                if((temp.state[0][0]+1 >= temp.state[0][1]+1) /*&& ((temp.state[1][0]-1 >= temp.state[1][1]-1) || (temp.state[0][0] - 1 == 0))*/ ){ //checks if removing one chicken on the left bank and adding  makes wolves outnumber chickens
                     return true;
                 }
-                return false;
+               
             }
+            //return false;
         }
     }
 
@@ -121,7 +120,7 @@ bool actionIsValid(struct node temp, int action){
                 }
                
            }
-            return false;
+            // return false;
         }
     
         else{ //if boat is on the right bank
@@ -131,26 +130,24 @@ bool actionIsValid(struct node temp, int action){
                 }
               
            }
-            return false;
+            // return false;
         }
     }
+    else 
+        return false;
+    cout << "action is here end" << endl;
+
+    return false;
     
 }
 
 void result(struct node temp, struct node *s, int action){
-    // for(int i = 0; i < 2; i++){
-    //     for(int j = 0; j < 3; j++){
-    //         s->state[i][j] = temp.state[i][j];
-    //     }   
-    // }
-    s->state[0][0] = temp.state[0][0];
-    s->state[0][1] = temp.state[0][1];
-    s->state[0][2] = temp.state[0][2];
-    s->state[1][0] = temp.state[1][0];
-    s->state[1][1] = temp.state[1][1];
-    s->state[1][2] = temp.state[1][2];
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 3; j++){
+            s->state[i][j] = temp.state[i][j];
+        }   
+    }
 
-    
     if(action == 0){ //move one chicken
    
         if(s->state[0][2] == 1){ //left
@@ -261,15 +258,16 @@ void result(struct node temp, struct node *s, int action){
 
 string keyGen (struct node goNode){
     string key;
-    key = to_string(goNode.state[0][0]) + to_string(goNode.state[0][1]) + to_string(goNode.state[0][2]);
-        // + to_string(goNode.action);  // changes the ints to string for key generation for the hash table
+    stringstream ss;
+    ss << goNode.state[0][0] << goNode.state[0][1] << goNode.state[0][2];
+    // cout << goNode.state[0][0] << ", " << goNode.state[0][1] <<", " << goNode.state[0][2] << endl;
+    key = ss.str();
     return key;
 }
 
 vector <struct node*> expand(struct node* temp){
     vector <struct node*> successors; // vector //needs to be a data structure of some kind not just an array unless we can append to an array. Maybe a vector
     struct node* s;
-    
     
     for(int i = 0; i < 5; i++){
         if(actionIsValid(*temp, i)){  // this function checks see if the
@@ -313,11 +311,9 @@ struct node* bfs(struct node initState, struct node goalState, struct node *fail
             return failNode;    //returns failure if fringe is empty
         }
         temp = &(fringe.front()); //puts the first node to be expanded in a temp variable
-
         cout << "Action: "<<temp->action << endl;
-
         cout << "Before Size: " << fringe.size() << endl;
-
+        
         fringe.pop();
         children.push_back(temp->name);
 
@@ -325,8 +321,6 @@ struct node* bfs(struct node initState, struct node goalState, struct node *fail
             cout << children[i] << ", ";
         }
         cout << endl;
-        
-
         cout << "After Size: " << fringe.size() << endl;
         cout << "Path cost: " << temp->pathCost << endl;
         cout << "Node Name: " << temp->name << endl;
@@ -343,9 +337,8 @@ struct node* bfs(struct node initState, struct node goalState, struct node *fail
 
             for(int i = 0; i < expanded.size(); i++){
                 fringe.push(*(expanded[i])); //adds from the expanded list to the fringe list
-                
             }
-        }         
+        } 
     }
 }
 
@@ -355,8 +348,8 @@ int main(){
     initState.state[0][0] = 0;
     initState.state[0][1] = 0;
     initState.state[0][2] = 0;
-    initState.state[1][0] = 3;
-    initState.state[1][1] = 3;
+    initState.state[1][0] = 100;
+    initState.state[1][1] = 95;
     initState.state[1][2] = 1;
     initState.parent = NULL;
     initState.action = -1;
@@ -365,8 +358,8 @@ int main(){
     initState.name = "init";
     
     struct node goalState;
-    goalState.state[0][0] = 3;
-    goalState.state[0][1] = 3;
+    goalState.state[0][0] = 100;
+    goalState.state[0][1] = 95;
     goalState.state[0][2] = 1;
     goalState.state[1][0] = 0;
     goalState.state[1][1] = 0;
@@ -391,12 +384,9 @@ int main(){
     failState.depth = 0;
     failState.name = "fail";
     
-    
     struct node* goal = bfs(initState, goalState, &failState);
 
     cout << goal->name << endl;
 
-    
     return 0;
-    
 }
