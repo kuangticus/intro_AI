@@ -20,22 +20,12 @@ struct node{
     int depth;
 };
 
+struct ComparePath {
+    bool operator<(const struct node *& path2){
+        return this->pathCost < path2->pathCost;
+    }
+};
+
 int main () {
-    unordered_map <string, struct node*> closed;
-
-    struct node *t1, *t2;
-
-
-    t1= new struct node;
-
-    t1->name = "Bill Cosby";
-
-    string random = "type this";
-
-    closed["sdfsf"] = t1;
-
-    t2 = closed[random];
-
-    cout << t2->name << endl;
-    
+    priority_queue <struct node*> vs;
 }
