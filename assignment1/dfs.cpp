@@ -1,6 +1,66 @@
-#include "assig1.h"
+#include <iostream>
+#include <string>
+#include <cstring>
+#include <cstdlib>
+#include <fstream>
+#include <queue>
+#include <vector>
+#include <unordered_map>
+#include <sstream>
+#include <stack>
+
+
+using namespace std;
 
 int expandedNodes = 0;
+
+struct node{
+    int state[2][3];
+    struct node* parent;
+    string name;
+    int action;
+    int pathCost;
+    int depth;
+};
+
+string keyGen (struct node goNode){
+    string key;
+    stringstream ss;
+    ss << goNode.state[0][0] << goNode.state[0][1] << goNode.state[0][2];
+    key = ss.str();
+    return key;
+}
+
+struct node* makeinitialNode(int state[2][3]){
+
+    struct node *temp = new struct node;
+
+    temp->parent = NULL;
+    temp->action = -1;
+    temp->pathCost = 0;
+    temp->depth = 0;
+
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 3; j++){
+            temp->state[i][j] = state[i][j];
+        }
+    } 
+    temp->name = keyGen(*temp);
+    
+    return temp;
+
+}
+bool goalTest(struct node temp, int goal[2][3]){
+    for(int i = 0; i < 2; i++){
+        for(int j = 0; j < 3; j++){
+            if(temp.state[i][j] != goal[i][j]){
+                return false;    
+            }       
+        }
+    }  
+    return true;
+}
+
 
 bool actionIsValid(struct node temp, int action){
 
@@ -105,6 +165,7 @@ bool actionIsValid(struct node temp, int action){
     }
     return false;
 }
+
 
 void result(struct node temp, struct node *s, int action){
     for(int i = 0; i < 2; i++){
@@ -211,112 +272,132 @@ void result(struct node temp, struct node *s, int action){
     }
 }
 
-string keyGen (struct node goNode){
-    string key;
-    stringstream ss;
-    ss << goNode.state[0][0] << goNode.state[0][1] << goNode.state[0][2];
-    key = ss.str();
-    return key;
-}
+void solutionPath(struct node* goal){
 
-vector <struct node*> expand(struct node* temp){
-
-    expandedNodes++;
-    vector <struct node*> successors; // vector //needs to be a data structure of some kind not just an array unless we can append to an array. Maybe a vector
-    struct node* s;
-    
-    for(int i = 0; i < 5; i++){
-        if(actionIsValid(*temp, i)){  // this function checks see if the
-            s = new struct node;
-            s->parent = temp;
-            s->action = i;   
-            result(*temp, s, i);
-            s->pathCost = temp->pathCost + 1;//stepCost(temp, s, i); 
-            s->depth++;
-            s->name = "";
-            s->name = keyGen(*s);
-            successors.push_back(s);
-        }
-    }
-    return successors;
-}
-
-bool goalTest(struct node temp, struct node goalState){
-    for (int i = 0; i < 2; i++){
-        for ( int j = 0; j < 3; j++){
-            if ( temp.state[i][j] != goalState.state[i][j] )
-                return false;
-        }
-    }
-    return true;
-}
-
-struct node* bfs(struct node initState, struct node goalState, struct node *failNode, char** argv, ofstream &out1){
-
-    struct node* temp;  // going to expand node?
-    vector <struct node*> expanded; //same data structure as successors
-    unordered_map <string, struct node*> closed; //create hashtable for bfs
-    queue <struct node> fringe;   //queue for nodes 
-    fringe.push(initState); //pushes initial state on the queue
-    vector <string> children;
-    
-
-    while(true){
-        
-        if(fringe.empty()){ 
-            cout << "faile" << endl;
-            return failNode;    //returns failure if fringe is empty
-        }
-        temp = &(fringe.front()); //puts the first node to be expanded in a temp variable
-        
-        fringe.pop();
-        
-        if(goalTest(*temp, goalState)){ //checks if the node is a goal state
-            cout << "goal node" << endl;
-            cout << temp->name << endl;
-            cout << temp->pathCost << endl;
-            cout << expandedNodes << endl;
-            solutionPath(*temp, out1, argv);
-            return temp;    // returns the node if it is a goal state
-        }
-        
-        if(closed.find(temp->name) == closed.end()){ //checks if the closed list contains the node to be expanded
- 
-            closed[temp->name] = temp;    //adds the node to the closed list
-            expanded = expand(temp);       //expands the node and returns successors
-
-            for(int i = 0; i < expanded.size(); i++){
-                fringe.push(*(expanded[i])); //adds from the expanded list to the fringe list
-            }
-        } 
-    }
-}
-
-void solutionPath(struct node goal, ofstream &out1, char** argv){
-    
-    vector <int> path;
-    struct node *nextNode = goal.parent;
-    struct node currNode = goal;
-    int action;
+    stack <int> actions;
+    struct node* currNode = goal;
+    struct node* nextNode = goal->parent;
 
     string list [5];
-    list[0] = "Move 1 chicken across.";
-    list[1] = "Move 2 chicken across.";
-    list[2] = "Move 1 wolf across.";
-    list[3] = "Move 1 chicken and 1 wolf across.";
-    list[4] = "Move 2 wolves across.";
-
-
-    while(nextNode != NULL){
-
-        path.push_back(currNode.action);
-        currNode = *nextNode;
-        nextNode = currNode.parent;
-    }
-    out1.open(argv[4]);
+    list[0] = "1) Move 1 chicken across.";
+    list[1] = "2) Move 2 chicken across.";
+    list[2] = "3) Move 1 wolf across.";
+    list[3] = "4) Move 1 chicken and 1 wolf across.";
+    list[4] = "5) Move 2 wolves across.";
     
-    for(int i = path.size() - 1; i >= 0; i--){
-        out1 << list[path[i]] << endl;
-        cout << list[path[i]] << endl;
+    while(nextNode != NULL){
+        actions.push(currNode->action);
+        currNode = nextNode;
+        nextNode = currNode->parent;
     }
+
+    cout << "Size of path" << actions.size() << endl;
+
+    while(!actions.empty()){
+        cout << list[actions.top()] << endl;
+        actions.pop();
+    }
+}
+
+struct node* dfs(int initState[2][3], int goalState[2][3]){
+
+    unordered_map <string, struct node*> closed;
+    stack <struct node*> fringe;
+    struct node* currNode;
+    struct node* s;
+    vector <string> vs;
+    struct node* temp;
+    // struct node* testparent = new struct node;
+    // testparent->name = "parent";
+
+
+    
+    fringe.push(makeinitialNode(initState));
+    // fringe.push(testparent);
+
+    while(true){
+
+        if(fringe.empty()){
+            cout << "fail" <<endl;
+            return NULL;
+        }
+
+
+        currNode = fringe.top();
+        fringe.pop();
+        vs.push_back(currNode->name);
+
+        // cout << currNode->name <<endl;
+        //closed[currNode->name] = currNode;
+
+        if(goalTest(*currNode, goalState)){
+            
+            cout << "Goal Name: " << currNode->name <<endl;
+            cout << "Goal Pathcost: " << currNode->pathCost <<endl;
+            cout << "Nodes Expanded: " << expandedNodes <<endl; 
+            
+            solutionPath(currNode);
+            
+            for(int i = 0; i < fringe.size(); i++){
+                temp = fringe.top();
+                fringe.pop();
+                if(closed.find(temp->name) == closed.end()){
+                    closed[temp->name] = temp;
+                }
+                
+            }
+            for(int i = 0; i < vs.size(); i++){
+                if(closed.find(vs[i]) != closed.end()){
+                    delete closed[vs[i]];
+                    closed.erase(vs[i]);
+                }
+            }
+            
+
+            cout << "success" <<endl;
+            return currNode;
+
+        }
+
+        if(closed.find(currNode->name) == closed.end()){
+            closed[currNode->name] = currNode;
+            expandedNodes++;
+            for(int i = 0; i < 5; i++){
+                if(actionIsValid(*currNode, i)){
+                    s = new struct node;
+                    result(*currNode, s, i);
+                    s->parent = currNode;
+                    s->name = keyGen(*s);
+                    s->action = i;
+                    s->pathCost = currNode->pathCost + 1; 
+                    s->depth = currNode->depth + 1;
+                    fringe.push(s);
+                }
+            }
+        }
+        else{
+            delete currNode;
+        }      
+    }
+
+
+
+
+
+}
+
+int main(){
+
+    int arr[2][3] = {{0, 0, 0}, {3, 3, 1}};
+    int arr2[2][3] = {{3, 3, 1}, {0, 0, 0}};
+
+    struct node* goal;
+
+
+   goal = dfs(arr, arr2);
+
+
+
+    
+    return 0;
 }

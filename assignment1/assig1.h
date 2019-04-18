@@ -9,6 +9,9 @@
 #include <queue>
 #include <vector>
 #include <unordered_map>
+#include <sstream>
+#include <stack>
+
 
 using namespace std;
 
@@ -17,9 +20,9 @@ vector <struct node*> expand();
 bool actionIsValid();
 void result();
 bool goalTest();
-void solutionPath();
+void solutionPath(struct node, ofstream&, char**);
 void heur();
-struct node bfs (struct node, struct node, struct node);
+struct node *bfs (struct node, struct node, struct node*, char**, ofstream &);
 void dfs ();
 void iddfs ();
 void astar ();
