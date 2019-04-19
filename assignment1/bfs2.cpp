@@ -313,6 +313,12 @@ struct node* bfs(int initState[2][3], int goalState[2][3]){
     while(true){
 
         if(fringe.empty()){
+            for(int i = 0; i < vs.size(); i++){
+                if(closed.find(vs[i]) != closed.end()){
+                    delete closed[vs[i]];
+                    closed.erase(vs[i]);
+                }
+            }
             cout << "fail" <<endl;
             return NULL;
         }
@@ -374,8 +380,8 @@ struct node* bfs(int initState[2][3], int goalState[2][3]){
 
 int main(){
 
-    int arr[2][3] = {{0, 0, 0}, {100, 95, 1}};
-    int arr2[2][3] = {{100, 95, 1}, {0, 0, 0}};
+    int arr[2][3] = {{0, 0, 0}, {3, 3, 1}};
+    int arr2[2][3] = {{3, 3, 1}, {0, 0, 0}};
     struct node* goal;
     goal = bfs(arr, arr2); 
     return 0;

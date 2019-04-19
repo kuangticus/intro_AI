@@ -22,6 +22,11 @@ struct node{
     int pathCost;
     int depth;
 };
+struct ComparePath {
+    bool operator()(const struct node *path1, const struct node *path2){
+        return path1->pathCost > path2->pathCost;
+    }
+};
 
 string keyGen (struct node goNode){
     string key;
@@ -302,10 +307,10 @@ void solutionPath(struct node* goal){
 int hueristic(struct node* s, int goalState[2][3]){
     int n;
     if(goalState[0][2] == 1){
-        n = s->state[1][0] + s->state[1][1]
+        n = s->state[1][0] + s->state[1][1];
     }
     else{
-        n = s->state[0][0] + s->state[0][1]
+        n = s->state[0][0] + s->state[0][1];
     }
     
     if(n == 1){
@@ -324,7 +329,7 @@ int hueristic(struct node* s, int goalState[2][3]){
 struct node* astar(int initState[2][3], int goalState[2][3]){
 
     unordered_map <string, struct node*> closed;
-    priority_queue <struct node*, vector<struct node*>, greater<struct node*> > fringe;
+    priority_queue <struct node*, vector <struct node*>, ComparePath> fringe;
     struct node* currNode;
     struct node* s;
     vector <string> vs;
@@ -339,7 +344,7 @@ struct node* astar(int initState[2][3], int goalState[2][3]){
             return NULL;
         }
 
-        currNode = fringe.front();
+        currNode = fringe.top();
         fringe.pop();
         vs.push_back(currNode->name);
 
@@ -352,7 +357,7 @@ struct node* astar(int initState[2][3], int goalState[2][3]){
             solutionPath(currNode);
             
             for(int i = 0; i < fringe.size(); i++){
-                temp = fringe.front();
+                temp = fringe.top();
                 fringe.pop();
                 if(closed.find(temp->name) == closed.end()){
                     closed[temp->name] = temp;
@@ -382,7 +387,7 @@ struct node* astar(int initState[2][3], int goalState[2][3]){
                     s->parent = currNode;
                     s->name = keyGen(*s);
                     s->action = i;
-                    s->pathCost = currNode->pathCost + 1; 
+                    s->pathCost = currNode->pathCost + hueristic(s, goalState); 
                     s->depth = currNode->depth + 1;
                     fringe.push(s);
                 }
