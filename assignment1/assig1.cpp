@@ -15,49 +15,47 @@ int main(int argc, char *argv[]){
  
     //init state getline for values used for intial states values
     if(in1.is_open()){
+        getline(in1, line1, ',');
+        initState[0][0] = stoi(line1);
+
+        getline(in1, line1, ',');
+        initState[0][1] = stoi(line1);
+
         getline(in1, line1);
+        initState[0][2] = stoi(line1);
+        
+        
+        getline(in1, line2, ',');
+        initState[1][0] = stoi(line2);
+
+        getline(in1, line2, ',');
+        initState[1][1] = stoi(line2);
+
         getline(in1, line2);
+        initState[1][2] = stoi(line2);
     }
 
-    // for loop used to get the the str values into ints
-    for(int i = 0; i < line1.length(); i++){
-        if(i%2 == 0){
-            initState[0][temp] = int(line1[i])-48;
-            temp++;
-        }
-    }
-    temp = 0;
-    
-    // for loop used to get the the str values into ints   
-    for (int i=0; i<line2.length(); i++){
-        if(i%2 == 0){
-            initState[1][temp] = int(line2[i])-48;
-            temp++;
-        }
-    }
-    
-    //goal state
-    temp = 0;
-    
     if(in2.is_open()){
+        getline(in2, line1, ',');
+        goalState[0][0] = stoi(line1);
+
+        getline(in2, line1, ',');
+        goalState[0][1] = stoi(line1);
+
         getline(in2, line1);
+        goalState[0][2] = stoi(line1);
+        
+        
+        getline(in2, line2, ',');
+        goalState[1][0] = stoi(line2);
+
+        getline(in2, line2, ',');
+        goalState[1][1] = stoi(line2);
+
         getline(in2, line2);
+        initState[1][2] = stoi(line2);
     }
 
-    for(int i = 0; i < line1.length(); i++){
-        if(i % 2 == 0){
-            goalState[0][temp] = int(line1[i])-48;
-            temp++;
-        }
-    }
-    temp = 0;
-   
-    for (int i=0; i<line2.length(); i++){
-        if(i % 2 == 0){
-            goalState[1][temp] = int(line2[i])-48;
-            temp++;
-        }
-    }
 
     in1.close(); //closing text1 intial state
     in2.close(); //closing text2 goal state
@@ -69,20 +67,17 @@ int main(int argc, char *argv[]){
         return 0;
     }
 
-    if ( argv[3] == modes[0] ) {
-        r1 = bfs();
-        cout << r1->name << endl;
-    }
+    if ( argv[3] == modes[0] ) 
+        r1 = bfs(initState, goalState, out1);
     else if ( argv[3] == modes[1] )
-        dfs();
+        r1 = dfs(initState, goalState, out1);
     else if ( argv[3] == modes[2] )
-        iddfs();
+        r1 = iddfs(initState, goalState, out1);
     else if ( argv[3] == modes[3] )
-        astar();
+        r1 = astar(initState, goalState, out1);
     else 
         cout << "Mode: " << argv[3] << " does not exist!" << endl;
-
-    // insert code for writing to file here
     
+    out1.close();
     return 0;
 }
