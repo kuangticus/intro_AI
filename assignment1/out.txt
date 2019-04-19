@@ -1,0 +1,391 @@
+Goal Name: 100951
+Goal Pathcost: 387
+Nodes Expanded: 8666888
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+2) Move 2 chicken across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+5) Move 2 wolves across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+3) Move 1 wolf across.
+4) Move 1 chicken and 1 wolf across.
+success
