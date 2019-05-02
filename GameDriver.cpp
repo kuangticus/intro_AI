@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "GameDriver.h"
 
+using namespace std;
+
 GameDriver::GameDriver(char* p1type, char* p2type, int num_rows, int num_cols) {
 	if( strcmp(p1type,"human") == 0 ) {
 		p1 = new HumanPlayer('X');

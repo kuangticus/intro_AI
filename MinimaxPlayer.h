@@ -8,9 +8,11 @@
 #ifndef MINIMAXPLAYER_H
 #define MINIMAXPLAYER_H
 
+#include <vector>
 #include "OthelloBoard.h"
 #include "Player.h"
-#include <vector>
+
+using namespace std;
 
 /**
  * This class represents an AI player that uses the Minimax algorithm to play the game
@@ -28,6 +30,13 @@ public:
 	 * Destructor
 	 */
 	virtual ~MinimaxPlayer();
+
+	bool isTerminal(OthelloBoard*);
+	int maxVal(OthelloBoard *);
+	int minVal(OthelloBoard *);
+	int termTest(OthelloBoard *);
+	int utility(OthelloBoard *);
+	vector<OthelloBoard*> successorsGenerate(OthelloBoard *, vector<int*> *);
 
 	/**
 	 * @param b The board object for the current state of the board
