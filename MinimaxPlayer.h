@@ -37,8 +37,22 @@ public:
 	 * @param row Holds the return value for the row of the move
 	 */
     void get_move(OthelloBoard* b, int& col, int& row);
+
+	/**
+	 * @param OthelloBoard * this the state that is passed in to the function
+	 */
 	int utFunc(OthelloBoard *);
+
+	/**
+	 * @param OthelloBoard * this the state that is passed in to the function
+	 * @param char the character that will be used to set
+	 */
 	vector<OthelloBoard*> getSuccessors(OthelloBoard*, char);
+
+	/**
+	 * @param OthelloBoard * this the state that is passed in to the function
+	 * @param int & and int & reference to the rol and col that from the driver cpp
+	 */
 	int maxValue(OthelloBoard*, int &, int &);
 	int minValue(OthelloBoard*, int &, int &);
 
