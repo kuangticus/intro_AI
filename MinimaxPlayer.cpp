@@ -20,11 +20,17 @@ MinimaxPlayer::~MinimaxPlayer() {
 
 }
 
+// Function: utility function that will get the utility of the term states
+// Para: OthelloBoard
+// Description: gets the terminal of the terminal state by subtracting the p1 from the p2
 int MinimaxPlayer::utFunc(OthelloBoard *b)
 {
+	// returns the utility state of the terminal state
 	return  b->count_score(b->get_p1_symbol() ) - b->count_score(b->get_p2_symbol() );
 }
 
+// Function: getSuccessors 
+// Para: creates the successors of the of the player 
 vector<OthelloBoard*> MinimaxPlayer::getSuccessors (OthelloBoard *b, char symbol) {
 	vector<OthelloBoard*> listOfSuccessors;
 
@@ -34,8 +40,8 @@ vector<OthelloBoard*> MinimaxPlayer::getSuccessors (OthelloBoard *b, char symbol
 		{
 			if ( b->is_legal_move(i, j, symbol)){
 				OthelloBoard *temp = new OthelloBoard(*b);
-				temp->thisCol = i;				
-				temp->thisRow = j;
+				temp->mutateThisCol(i);				
+				temp->mutateThisRow(j);
 				temp->play_move(i,j, symbol);
 				listOfSuccessors.push_back(temp);
 			}
@@ -47,44 +53,41 @@ vector<OthelloBoard*> MinimaxPlayer::getSuccessors (OthelloBoard *b, char symbol
 int MinimaxPlayer::maxValue (OthelloBoard *b, int &col, int &row)
 {
 	int maxU = INT_MIN;
-	int compareMin=0, bestRow=0, bestCol=0;
-
-	// if ( b->has_legal_moves_remaining(b->get_p1_symbol()) || b->has_legal_moves_remaining(b->get_p2_symbol()) )
-	// 	return utFunc(b);
-
-	vector<OthelloBoard*> listOfSuccessors = getSuccessors(b, b->get_p2_symbol());
+	int compareMin=0;
+	int bestSol[2];
+	vector<OthelloBoard*> listOfSuccessors = getSuccessors(b, b->get_p1_symbol());
 
 	if ( listOfSuccessors.size() == 0 ){
-		// free memory
 		return utFunc(b);
 	}
-
-	// vector<OthelloBoard*> listOfSuccessors = getSuccessors(b, b->get_p1_symbol() );
 
 	for( int i = 0; i < listOfSuccessors.size(); i++ ){
 		compareMin = max(maxU, minValue(listOfSuccessors[i], col, row));
 		if ( compareMin > maxU )
 		{
 			maxU = compareMin;
-			bestCol = listOfSuccessors[i]->thisCol;
-			bestRow = listOfSuccessors[i]->thisRow;
+			bestSol[0] = listOfSuccessors[i]->getThisCol();
+			bestSol[1] = listOfSuccessors[i]->getThisRow();
 		}
 	}
-	col = bestCol;
-	row = bestRow;
+	col = bestSol[0];
+	row = bestSol[1];
 
+	for (int i = 0; i < listOfSuccessors.size(); i++ )
+	{
+		delete listOfSuccessors[i];
+	}
 	return maxU;
 }
 
 int MinimaxPlayer::minValue (OthelloBoard *b, int &col, int &row)
 {
 	int minU = INT_MAX;
-	int compareMax=0, bestRow=0, bestCol=0;
-
+	int compareMax=0;
+	int bestSol[2];
 	vector<OthelloBoard*> listOfSuccessors = getSuccessors(b, b->get_p2_symbol());
 
 	if ( listOfSuccessors.size() == 0 ){
-		// free memory
 		return utFunc(b);
 	}
 	
@@ -93,20 +96,23 @@ int MinimaxPlayer::minValue (OthelloBoard *b, int &col, int &row)
 		if ( compareMax < minU )
 		{
 			minU = compareMax;
-			bestCol = listOfSuccessors[i]->thisCol;
-			bestRow = listOfSuccessors[i]->thisRow;
+			bestSol[0] = listOfSuccessors[i]->getThisCol();
+			bestSol[1] = listOfSuccessors[i]->getThisRow();
 		}
 	}
-	col = bestCol;
-	row = bestRow;
+	col = bestSol[0];
+	row = bestSol[1];
 
-	
+	for (int i = 0; i < listOfSuccessors.size(); i++ )
+	{
+		delete listOfSuccessors[i];
+	}
 	return minU;
 }
 
 void MinimaxPlayer::get_move(OthelloBoard* b, int& col, int& row)
 {
-	int bestMove = minValue(b, col, row);
+		int bestMove = minValue(b, col, row);
 }
 
 MinimaxPlayer* MinimaxPlayer::clone() {

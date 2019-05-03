@@ -104,9 +104,18 @@ public:
      */
     char get_p2_symbol() { return p2_symbol; }
 
-    int thisRow;
 
-    int thisCol;
+    // returns the action row that was used to generate the state
+    int getThisRow () { return this->thisRow; }
+
+    // returns the action col that was used to generate the state
+    int getThisCol () { return this->thisCol; }
+
+    // used to set the col that is used to generate the state
+    void mutateThisCol (int col) { this->thisCol = col; }
+
+    // used to set the row that is used to generate the state 
+    void mutateThisRow (int row) { this->thisRow = row; }
 
 private:
 
@@ -116,7 +125,12 @@ private:
     /** The symbol for Player 2's pieces */
     char p2_symbol;
 
- 
+    // this row action that is used to generate the state
+    int thisRow;
+
+    // this col actoin that is used to generate the state
+    int thisCol;
+
 
     /**
      * @param col The column of the starting point
