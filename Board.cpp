@@ -2,8 +2,6 @@
 #include <assert.h>
 #include "Board.h"
 
-using namespace std;
-
 void Board::delete_grid() {
 	for (int c = 0; c < num_cols; c++) {
 		delete[] grid[c];
