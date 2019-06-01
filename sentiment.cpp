@@ -9,6 +9,8 @@
 #include <climits>
 #include <sstream>
 #include <cstdlib>
+#include <stdlib.h>     /* srand, rand */
+#include <time.h>       /* time */
 
 using namespace std;
 
@@ -21,9 +23,15 @@ vector<int> intialize(int);
 void printer (vector<vector<int>> *, vector<string>, int);
 int countReviews (const vector<vector<int>>, int, int);
 
+int countConditional(const vector<vector<int>> , int , int , int , int );
+float calculateProbPos(const vector<vector<int>> , const vector<int> , int );
+float calculateProbNeg(const vector<vector<int>> , const vector<int> , int );
+void predict(const vector<vector<int>> , const vector<vector<int>> , int );
 // add the bayesian stuff here
 
 int main (int argc, char** argv){ // maybe add a little of user input for file choosing
+
+    srand (time(NULL));
 
     // vectors for the test and training bank
     vector<string> wordBank;
@@ -36,17 +44,24 @@ int main (int argc, char** argv){ // maybe add a little of user input for file c
     positiveTot = countReviews(featuresTraining, 1, wordBank.size());
     negativeTot = countReviews(featuresTraining, 0, wordBank.size() );
 
+    cout << "Total Reviews: " << totalReviews << endl;
+    cout << "positive Reviews: " << positiveTot << endl;
+    cout << "negative Reviews: " << negativeTot << endl;
+    
+    for ( int i = 0; i < wordBank.size(); i++){
+        cout << wordBank[i] << ", ";
+    }
+    cout << endl;
 
-    // for ( int i = 0; i < wordBank.size(); i++){
-    //     cout << wordBank[i] << ", ";
-    // }
-    // cout << endl;
+    for ( int i = 0; i < wordBank.size(); i++){
+        cout << featuresTraining[0][i] << ", ";
+    }
+    cout << endl;
 
-    // for ( int i = 0; i < wordBank.size(); i++){
-    //     cout << featuresTraining[0][i] << ", ";
-    // }
-    // cout << endl;
+    
+    predict(featuresTraining, featuresTraining, wordBank.size());
 
+    
     return 0;
 }
 
@@ -149,6 +164,8 @@ void featurize ( vector<vector <int>> &features, vector<string> wordbank, int se
     }
 }
 
+
+//bayesian functions
 int countReviews( const vector<vector<int>> features, int reviewType, int bankSize){
     int reviews = 0;
     
@@ -191,4 +208,31 @@ float calculateProbNeg(const vector<vector<int>> training, const vector<int> tes
     }
     prob = log(negativeTot/totalReviews) + probConditional;
     return prob;
+}
+
+void predict(const vector<vector<int>> training, const vector<vector<int>> test, int bankSize){
+    int correct = 0;
+    int prediction;
+    int positive;
+    int negative;
+
+    for(int i = 0; i < test.size(); i++){
+        positive = calculateProbPos(training, test[i], bankSize);
+        negative = calculateProbNeg(training, test[i], bankSize);
+        if( positive > negative){
+            prediction = 1;
+        }
+        else if(positive < negative){
+            prediction = 0;
+        }
+        else{ 
+            prediction = rand() % 2;
+        }
+
+        if(prediction == test[i][bankSize-1]){
+            correct++;
+        }
+    }
+
+    cout << correct << "/" << test.size() << endl;
 }
