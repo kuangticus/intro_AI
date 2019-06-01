@@ -81,6 +81,7 @@ void parse(vector<string> *wordbank, int setting){
 void featurize ( vector<vector <int>> *features, vector<string> wordbank, int setting){
     ifstream infile1;
     string line, word;
+    unordered_map <string, string> sentence;
 
     int wordBanklength = wordbank.size();
     
@@ -99,8 +100,11 @@ void featurize ( vector<vector <int>> *features, vector<string> wordbank, int se
                 {
                     word = word + word[i];
                 }
-                transform(word.begin(), word.end(), word.begin(), ::tolower);    
-                for 
+                transform(word.begin(), word.end(), word.begin(), ::tolower);     
+            }
+
+            if (word != "" && (sentence.find(word) == sentence.end()) ) {
+                sentence[word] = word; 
             }
         }
         // cout << line << endl;
