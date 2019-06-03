@@ -1,3 +1,7 @@
+#Group: members
+#Chetan Dindukurthi
+#WeiHao Kuang
+
 import os
 import sys
 import math
@@ -48,33 +52,35 @@ def probCalculate(training, test, review):
     negativeReviews = countNegReviews(training) ## getting the numerator negative reviews
     totalReviews = len(training)                ## getting the denomintor without +Nj
     
-    posProb = math.log10(float(positiveReviews)/float(totalReviews))
-    negProb = math.log10(float(negativeReviews)/float(totalReviews))
+    posProb = math.log10(float(positiveReviews)/float(totalReviews))    ## this is the firs part of the log where we get the prob of positive review
+    negProb = math.log10(float(negativeReviews)/float(totalReviews))    ## this is the first part of the log where we get the prob of the negative review
     
     conProbPos = 0
     conProbNeg = 0
     
+    ## the following for loop is the summation of all the logs for a review given a reviw type
+    ## we are using logs since the probabilities are so small
     for i in range(0, len(test[0])-1):
-        conProbPos = conProbPos + math.log10( float(conProbabilityPos(training, test, i, review))/float(positiveReviews + 2) )
-        conProbNeg = conProbNeg + math.log10( float(conProbabilityNeg(training, test, i, review))/float(negativeReviews + 2) )
+        conProbPos = conProbPos + math.log10( float(conProbabilityPos(training, test, i, review))/float(positiveReviews + 2) )  ## this is for postive reviews
+        conProbNeg = conProbNeg + math.log10( float(conProbabilityNeg(training, test, i, review))/float(negativeReviews + 2) )  ## this if for negative reviews
 
-    posProb = posProb + conProbPos 
-    negProb = negProb + conProbNeg
+    posProb = posProb + conProbPos  ## here we simply add the firs term with the summation fo the logs for positive
+    negProb = negProb + conProbNeg  ## here we simple add the first term with the summation of the logs for negative
 
-    if posProb > negProb:
+    if posProb > negProb:           ## if the probabily of positive is greater return 1
         return 1
-    elif negProb > posProb:
+    elif negProb > posProb:         ## if the probability of negative is greater return 0
         return 0
     else:
-        return random.randint(0,2)
+        return random.randint(0,2)  ## if the probilites are equal randomly choose 0 or 1
 
 def loopAll(training, test):
     prediction = 0
     count = 0
-    for i in range(0, len(test)):
-        prediction = probCalculate(training, test, i)
-        if prediction == test[i][-1]:
-            count = count + 1
+    for i in range(0, len(test)):                       # this will run through the len of passed in feature list list 
+        prediction = probCalculate(training, test, i)   # we will call the probcal to get the predicted prob 
+        if prediction == test[i][-1]:                   # comparing the predicted to the actual so that 
+            count = count + 1                           # increment that total correct
     
     return count
 
@@ -199,11 +205,12 @@ if __name__ == '__main__':
     f1.close()
     
 
+    f2 = open("results.txt", "w")
     ## following function calcualate using bayes net, and the we output the accuracies here as well
     correct = loopAll(trainingF, trainingF)             ## calling the loopAll for prob calculation
-    print("Training # correct: ", correct, "/", len(trainingF))
-    print("Percent Accuracy: ", 100* (float(correct)/float(len(trainingF))))
+    print("Training # correct: ", correct, "/", len(trainingF), file=f2)
+    print("Percent Accuracy: ", 100* (float(correct)/float(len(trainingF))), file=f2)
 
     correct = loopAll(trainingF, testingF)
-    print("Testing # correct: ", correct, "/", len(testingF))   ## calling the loopAll for prob calculation
-    print("Percent Accuracy: ", 100*(float(correct)/float(len(testingF))))
+    print("Testing # correct: ", correct, "/", len(testingF), file=f2)   ## calling the loopAll for prob calculation
+    print("Percent Accuracy: ", 100*(float(correct)/float(len(testingF))), file=f2)
