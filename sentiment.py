@@ -4,50 +4,49 @@ import math
 import random
 import re
 
+## counts the positive reviews in the a given features list of list
+## takes in list[[]] training
 def countPosReviews(training):
     count = 0
-    
     for i in range(0, len(training)):
-        #print( "int for loop" , i)
-        #print("Count: ", training[i][-1])
-        if training[i][-1] == 1:
+        if training[i][-1] == 1:        ## simply will run through the training to find all pos. classlabels
             count = count + 1
     
-    return count
-    
+    return count                        ## returns the # of pos. classlabels
+
+## counts the negative reviews in the a given features list of list
+## takes in list[[]] training
 def countNegReviews(training):
     count = 0
-    for i in range(0, len(training)):
-        if training[i][-1] == 0:
+    for i in range(0, len(training)):   
+        if training[i][-1] == 0:       ## simpley will through the training to find all neg. classlabels
             count = count + 1
     
-    return count
+    return count                        ## returns the # of neg. classlabels
 
+## takes the training and then calculates how many reviews have the given review type positive 
 def conProbabilityPos(training, test, word, review):
     count = 0
     for i in range(0, len(training)):
-        if(training[i][word] == test[review][word] and training[i][-1] == 1):
-            count = count + 1
+        if(training[i][word] == test[review][word] and training[i][-1] == 1):   ## runs through and check for all of the 
+            count = count + 1                                                   ## positive reviews for given word
     
-    return count + 1 
+    return count + 1        ## returns the dirichlet priors numerator (+1)
 
+## takes the training and then calculates how many reviews have the given review type negative
 def conProbabilityNeg(training, test, word, review):
     count = 0
     for i in range(0, len(training)):
-        if(training[i][word] == test[review][word] and training[i][-1] == 0):
-            count = count + 1
+        if(training[i][word] == test[review][word] and training[i][-1] == 0):  ## runes through and checks for all of the
+            count = count + 1                                                  ## negative reviews for given word
     
-    return count + 1   
+    return count + 1   ## returns the dirichlet priors numerator (+1)
 
 
 def probCalculate(training, test, review):
-    positiveReviews = countPosReviews(training)
-    negativeReviews = countNegReviews(training)
-    totalReviews = len(training)
-
-    # print(positiveReviews)
-    # print(negativeReviews)
-    # print(totalReviews)
+    positiveReviews = countPosReviews(training) ## getting the numerator postive reviews
+    negativeReviews = countNegReviews(training) ## getting the numerator negative reviews
+    totalReviews = len(training)                ## getting the denomintor without +Nj
     
     posProb = math.log10(float(positiveReviews)/float(totalReviews))
     negProb = math.log10(float(negativeReviews)/float(totalReviews))
@@ -87,94 +86,124 @@ if __name__ == '__main__':
     wordBank = []
     table = {}
 
-    for words in training:
-        string = words.split('\t')
-        wordList = string[0].split(' ')
-        wordList.remove('')
-        for i in wordList:
-            word  = re.sub(r'[^\w\s]','',i)
-            word = word.lower()
-            if ( not(word in table) ):
-                wordBank.append(word)
-                table[word] = word;
+    for words in training:                  ## ruuning through the training.txt
+        string = words.split('\t')          ## spliting off the tab and the words
+        wordList = string[0].split(' ')     ## splitting off by the space
+        wordList.remove('')                 ## removing the empty strings
+        for i in wordList:                  ## running through word to check for words
+            word  = re.sub(r'[^\w\s]','',i) ## removing all the unicode punctuation from the words
+            if ( word == '' ):              ## removing al the empty strings after punctuation manipulations
+                continue
+            else:                   
+                word = word.lower()         ## then we change each word to lower case
+                if ( not(word in table) ):  ## checking to see if the word exists in the dictionary table
+                    wordBank.append(word)   ## if the word in not in the dictionary add the word to wordBank
+                    table[word] = word;     ## also update the dictionary with the word used to check for repeats
         
-    wordBank.sort()
-    training.close()
-
-    # for i in wordBank:
-    #     print(i)
+    wordBank.sort()                         ## sorting the wordBank in alphabetical order
+    training.close()                        ## closing the file that wer are reading from
 
     ## featurize 
 
-    trainingF = []
+    trainingF = []                          
     testingF = [] 
      
-    testing = open("testSet.txt")
-    training = open("trainingSet.txt")
+    testing = open("testSet.txt")           ## opening the testset.txt for featurization
+    training = open("trainingSet.txt")      ## opening the training.txt again for featuriztion
 
-    for words in training:
-        features = []
-        string = words.split('\t')
-        classLabel = string[-1]             # classLabel
-        wordList = string[0].split(' ')
-        wordList.remove('')
+    for words in training:                  ## run through the lines in trainingtxt
+        features = []                       ## making an empty list for storing review features
+        string = words.split('\t')          ## splitin the string by tab again
+        classLabel = string[-1]             ## classLabel extraction from the review 
+        wordList = string[0].split(' ')     ## spliting the string by spaces
+        wordList.remove('')                 ## removing all the empty strings
 
-        compare = {}
+        compare = {}                        ## making a dictionary for comparison wordBank against review
         for i in wordList:
-            word = re.sub(r'[^\w\s]','',i)
-            word = word.lower()
-            compare[word] = word
-        
-        for i in wordBank:
-            if ( i in compare ):
-                features.append(1)
+            
+            word = re.sub(r'[^\w\s]','',i)  ## stripping punctuation from the words
+            if ( word == '' ):              ## removing empty strings
+                continue
             else:
-                features.append(0)
+                word = word.lower()         ## changing them to lower case
+                compare[word] = word        ## adding the word in compare dictionary
+        
+        for i in wordBank:                  ## comparing the wordBank against the review dictionary
+            if ( i in compare ):
+                features.append(1)          ## if the word exists in the review append 1 to features list
+            else:   
+                features.append(0)          ## if the word does not exists in review append to features list 0
 
-        features.append(int(classLabel[1]))
-        trainingF.append(features)
+        features.append(int(classLabel[1])) ## at the very end of the features list append the classlabel from earlier    
+        trainingF.append(features)          ## append each featurized review into the featurized review bank
 
     training.close()
 
 
-    for words in testing:
-        features = []
-        string = words.split('\t')
-        classLabel = string[-1]             # classLabel
-        wordList = string[0].split(' ')
-        wordList.remove('')
+    ## the code below is outputting the preprocessed training information into files
+    f = open("preprocessed_train.txt", "w")
+    for i in wordBank:                      ## outputting all the words in the bank
+        print(i, file=f, end='')            ## 
+        print(', ', file=f, end='')
+    print("... ,classlabel", file=f)        ## adding the field classlabel at the end
 
-        compare = {}
+    for i in trainingF:                     ## outputting the all the features
+        for x in range(0,(len(i)-1)):       
+            print(i[x], file=f, end='')
+            print(", ", file=f, end='')
+        print("...,", i[-1], file=f )
+    f.close()                               
+
+    ## end of outputting to files
+
+    for words in testing:                   ## going through all lines in the tesing
+        features = []                       ## empty list for later user from featurization
+        string = words.split('\t')          ## split by tabs
+        classLabel = string[-1]             # classLabel extraction
+        wordList = string[0].split(' ')     ## split the remaining by space
+        wordList.remove('')                 ## remove all empty strings
+
+        compare = {}                        ## used for later comparison
         for i in wordList:
-            word = re.sub(r'[^\w\s]','',i)
-            word = word.lower()
-            compare[word] = word
+            word = re.sub(r'[^\w\s]','',i)  ## removing all punctuation from word
+            if ( word == '' ):              ## ignoreing empty strings
+                continue
+            else:
+                word = word.lower()         ## lower case words
+                compare[word] = word        ## add to compare dictionary
         
         for i in wordBank:
-            if ( i in compare ):
+            if ( i in compare ):            ## if the word exits in review append one to features list
                 features.append(1)
             else:
-                features.append(0)
+                features.append(0)          ## if the word DNE in review append zero to features list
 
-        features.append(int(classLabel[1]))
+        features.append(int(classLabel[1])) ## append the classlabel to the features list
         testingF.append(features)
 
     testing.close()
+
+
+    ## printing out to the file called preprocessed_test.txt
+    f1 = open("preprocessed_test.txt", "w")
+    for i in wordBank:                      ## printing all of the words in the wordBank
+        print(i, file=f1, end='') 
+        print(', ', file=f1, end='')
+    print("... ,classlabel", file=f1)
+
+    for i in testingF:
+        for x in range(0,(len(i)-1)):       ## printing all of the features 
+            print(i[x], file=f1, end='')
+            print(", ", file=f1, end='')
+        print("...,", i[-1], file=f1 )
+    f1.close()
     
-    correct = loopAll(trainingF, trainingF)
-    print("# correct: ", correct, "/", len(trainingF))
-    print("Percent Accuracy: ", float(correct)/float(len(trainingF)))
+
+    ## following function calcualate using bayes net, and the we output the accuracies here as well
+    correct = loopAll(trainingF, trainingF)             ## calling the loopAll for prob calculation
+    print("Training # correct: ", correct, "/", len(trainingF))
+    print("Percent Accuracy: ", 100* (float(correct)/float(len(trainingF))))
 
     correct = loopAll(trainingF, testingF)
-    print("# correct: ", correct, "/", len(testingF))
-    print("Percent Accuracy: ", float(correct)/float(len(testingF)))
-
-
-
-    
-    
-                
-
-
-
-    
+    print("Testing # correct: ", correct, "/", len(testingF))   ## calling the loopAll for prob calculation
+    print("Percent Accuracy: ", 100*(float(correct)/float(len(testingF))))
