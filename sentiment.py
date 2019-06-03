@@ -6,8 +6,11 @@ import re
 
 def countPosReviews(training):
     count = 0
+    
     for i in range(0, len(training)):
-        if(training[i][-1] == 1):
+        #print( "int for loop" , i)
+        #print("Count: ", training[i][-1])
+        if training[i][-1] == 1:
             count = count + 1
     
     return count
@@ -15,7 +18,7 @@ def countPosReviews(training):
 def countNegReviews(training):
     count = 0
     for i in range(0, len(training)):
-        if(training[i][-1] == 0):
+        if training[i][-1] == 0:
             count = count + 1
     
     return count
@@ -42,13 +45,17 @@ def probCalculate(training, test, review):
     negativeReviews = countNegReviews(training)
     totalReviews = len(training)
 
+    # print(positiveReviews)
+    # print(negativeReviews)
+    # print(totalReviews)
+    
     posProb = math.log10(float(positiveReviews)/float(totalReviews))
     negProb = math.log10(float(negativeReviews)/float(totalReviews))
     
     conProbPos = 0
     conProbNeg = 0
     
-    for i in range(0, test[0]):
+    for i in range(0, len(test[0])-1):
         conProbPos = conProbPos + math.log10( float(conProbabilityPos(training, test, i, review))/float(positiveReviews + 2) )
         conProbNeg = conProbNeg + math.log10( float(conProbabilityNeg(training, test, i, review))/float(negativeReviews + 2) )
 
@@ -85,20 +92,24 @@ if __name__ == '__main__':
         wordList = string[0].split(' ')
         wordList.remove('')
         for i in wordList:
-            word = re.sub(r'[^\w\s]','',i)
+            word  = re.sub(r'[^\w\s]','',i)
+            word = word.lower()
             if ( not(word in table) ):
-                wordBank.append([word])
+                wordBank.append(word)
                 table[word] = word;
         
     wordBank.sort()
     training.close()
 
+    # for i in wordBank:
+    #     print(i)
+
     ## featurize 
 
     trainingF = []
-    trainginT = [] 
+    testingF = [] 
      
-    # testing = open("testSet.txt")
+    testing = open("testSet.txt")
     training = open("trainingSet.txt")
 
     for words in training:
@@ -112,18 +123,69 @@ if __name__ == '__main__':
         wordList = string[0].split(' ')
         wordList.remove('')
 
-            for i in wordList:
-                word = re.sub(r'[^\w\s]','',i)
-                if ( word in table ):
-                    features.append([1])
-                else:
-                    features.append([0])
+        compare = {}
+        for i in wordList:
+            word = re.sub(r'[^\w\s]','',i)
+            word = word.lower()
+            compare[word] = word;
+        
+        for i in wordBank:
+            if ( i in compare ):
+                features.append(1)
+            else:
+                features.append(0)
 
+        features.append(int(classLabel[1]))
         trainingF.append(features)
 
-    for i in trainingF:
-        print(i, end='')
-        print(" ,");
+    # for i in wordBank:
+    #     print(i, end='')
+    #     print(", ", end='')
+    
+    # print()
+
+    # for i in trainingF:
+    #     print(*i, sep=", ")
+
+
+
+    for words in testing:
+        features = []
+        string = words.split('\t')
+        # print ( string )
+        classLabel = string[-1]             # classLabel
+        # print ( classLabel[1] )             ## we wan classLabel 1
+        ## gotten class label
+
+        wordList = string[0].split(' ')
+        wordList.remove('')
+
+        compare = {}
+        for i in wordList:
+            word = re.sub(r'[^\w\s]','',i)
+            word = word.lower()
+            compare[word] = word;
+        
+        for i in wordBank:
+            if ( i in compare ):
+                features.append(1)
+            else:
+                features.append(0)
+
+        features.append(classLabel[1])
+        testingF.append(features)
+
+    # for i in wordBank:
+    #     print(i, end='')
+    #     print(" ,", end='')
+    
+    # print()
+
+    # for i in testingF:
+    #     print(*i, sep=", ")
+
+    print("# correct: ", loopAll(trainingF, trainingF))
+
 
     
     
