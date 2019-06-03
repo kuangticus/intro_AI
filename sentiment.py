@@ -211,6 +211,17 @@ if __name__ == '__main__':
     print("Training # correct: ", correct, "/", len(trainingF), file=f2)
     print("Percent Accuracy: ", 100* (float(correct)/float(len(trainingF))), file=f2)
 
+    print("Training # correct: ", correct, "/", len(trainingF))
+    print("Percent Accuracy: ", 100* (float(correct)/float(len(trainingF))))
+
+
+
+
     correct = loopAll(trainingF, testingF)
     print("Testing # correct: ", correct, "/", len(testingF), file=f2)   ## calling the loopAll for prob calculation
     print("Percent Accuracy: ", 100*(float(correct)/float(len(testingF))), file=f2)
+
+    print("Testing # correct: ", correct, "/", len(testingF))   ## calling the loopAll for prob calculation
+    print("Percent Accuracy: ", 100*(float(correct)/float(len(testingF))))
+
+    print("Results have been written in results.txt")
