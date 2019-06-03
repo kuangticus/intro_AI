@@ -79,7 +79,7 @@ def loopAll(training, test):
     
     return count
 
-    
+
 if __name__ == '__main__':
 
     training = open("trainingSet.txt")
@@ -115,11 +115,7 @@ if __name__ == '__main__':
     for words in training:
         features = []
         string = words.split('\t')
-        # print ( string )
         classLabel = string[-1]             # classLabel
-        # print ( classLabel[1] )             ## we wan classLabel 1
-        ## gotten class label
-
         wordList = string[0].split(' ')
         wordList.remove('')
 
@@ -127,7 +123,7 @@ if __name__ == '__main__':
         for i in wordList:
             word = re.sub(r'[^\w\s]','',i)
             word = word.lower()
-            compare[word] = word;
+            compare[word] = word
         
         for i in wordBank:
             if ( i in compare ):
@@ -138,25 +134,13 @@ if __name__ == '__main__':
         features.append(int(classLabel[1]))
         trainingF.append(features)
 
-    # for i in wordBank:
-    #     print(i, end='')
-    #     print(", ", end='')
-    
-    # print()
-
-    # for i in trainingF:
-    #     print(*i, sep=", ")
-
+    training.close()
 
 
     for words in testing:
         features = []
         string = words.split('\t')
-        # print ( string )
         classLabel = string[-1]             # classLabel
-        # print ( classLabel[1] )             ## we wan classLabel 1
-        ## gotten class label
-
         wordList = string[0].split(' ')
         wordList.remove('')
 
@@ -164,7 +148,7 @@ if __name__ == '__main__':
         for i in wordList:
             word = re.sub(r'[^\w\s]','',i)
             word = word.lower()
-            compare[word] = word;
+            compare[word] = word
         
         for i in wordBank:
             if ( i in compare ):
@@ -172,19 +156,19 @@ if __name__ == '__main__':
             else:
                 features.append(0)
 
-        features.append(classLabel[1])
+        features.append(int(classLabel[1]))
         testingF.append(features)
 
-    # for i in wordBank:
-    #     print(i, end='')
-    #     print(" ,", end='')
+    testing.close()
     
-    # print()
+    correct = loopAll(trainingF, trainingF)
+    print("# correct: ", correct, "/", len(trainingF))
+    print("Percent Accuracy: ", float(correct)/float(len(trainingF)))
 
-    # for i in testingF:
-    #     print(*i, sep=", ")
+    correct = loopAll(trainingF, testingF)
+    print("# correct: ", correct, "/", len(testingF))
+    print("Percent Accuracy: ", float(correct)/float(len(testingF)))
 
-    print("# correct: ", loopAll(trainingF, trainingF))
 
 
     
