@@ -225,3 +225,5 @@ if __name__ == '__main__':
     print("Percent Accuracy: ", 100*(float(correct)/float(len(testingF))))
 
     print("Results have been written in results.txt")
+
+    f2.close()
