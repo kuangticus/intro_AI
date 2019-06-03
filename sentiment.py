@@ -104,7 +104,7 @@ if __name__ == '__main__':
                 word = word.lower()         ## then we change each word to lower case
                 if ( not(word in table) ):  ## checking to see if the word exists in the dictionary table
                     wordBank.append(word)   ## if the word in not in the dictionary add the word to wordBank
-                    table[word] = word;     ## also update the dictionary with the word used to check for repeats
+                    table[word] = word     ## also update the dictionary with the word used to check for repeats
         
     wordBank.sort()                         ## sorting the wordBank in alphabetical order
     training.close()                        ## closing the file that wer are reading from
