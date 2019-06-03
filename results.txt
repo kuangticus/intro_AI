@@ -1,0 +1,4 @@
+Training # correct:  477 / 499
+Percent Accuracy:  95.59118236472945
+Testing # correct:  374 / 497
+Percent Accuracy:  75.25150905432596
